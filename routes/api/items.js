@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 });
 
 //@route POST api/items
-//@desc cREATE  post
+//@desc CREATE a item
 //@access Public
 
 
@@ -32,6 +32,20 @@ router.post('/', (req, res) => {
 
     newItem.save().then(item => res.json(item));
 });
+
+//@route DELETE api/items/:id
+//@desc DELETE a post
+//@access Public
+
+
+router.delete('/:id', (req, res) => {
+ 
+    Item.findById(req.params.id)
+        .then(item => item.remove().then(() => res.json({success: true})))
+        .catch(err => res.status(404).json({ success: false }));        
+
+})
+    
 
 
 module.exports = router;
